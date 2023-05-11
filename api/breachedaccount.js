@@ -2,6 +2,7 @@ const axios = require('axios');
 
 module.exports = async (req, res) => {
   try {
+    res.setHeader('Access-Control-Allow-Origin', '*');
     const email = req.query.email;
     const response = await axios.get(`https://haveibeenpwned.com/api/v3/breachedaccount/${email}?truncateResponse=false`, {
       headers: {
