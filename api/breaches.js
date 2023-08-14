@@ -1,5 +1,4 @@
 const axios = require('axios');
-require('dotenv').config()
 
 module.exports = async (req, res) => {
   try {
@@ -8,7 +7,7 @@ module.exports = async (req, res) => {
     const response = await axios.get(`https://haveibeenpwned.com/api/v3/breaches?domain=${domain}&truncateResponse=false`, {
       headers: {
         'User-Agent': 'YourAppName',
-        'hibp-api-key': process.env.VITE_HIBP_API_KEY,
+        'hibp-api-key': 'd6c5fbdd8570474f90ac68b6f17e61f4',
       },
     });
     res.json(response.data);
