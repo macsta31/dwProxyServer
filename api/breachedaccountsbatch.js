@@ -4,14 +4,14 @@ module.exports = async (req, res) => {
     try {
         res.setHeader('Access-Control-Allow-Origin', '*');
 
-        // Expect an array of emails in the request body
         const emails = req.body.emails;
         if (!Array.isArray(emails)) {
             return res.status(400).json({ message: 'Expected an array of emails in request body.' });
         }
 
         const results = [];
-        for (const email of emails) {
+
+        for (let email of emails) {
             try {
                 const response = await axios.get(`https://haveibeenpwned.com/api/v3/breachedaccount/${email}?truncateResponse=false`, {
                     headers: {
@@ -24,8 +24,8 @@ module.exports = async (req, res) => {
                 results.push({ email, error: handleErrorForEmail(error) });
             }
             
-            // Wait for 1600ms before making the next request
-            await new Promise(resolve => setTimeout(resolve, 1600));
+            // Introduce a 1600ms delay
+            await new Promise(resolve => setTimeout(resolve, 3200));
         }
 
         res.json(results);
