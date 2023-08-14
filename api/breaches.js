@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     const domain = req.query.domain;
     const response = await axios.get(`https://haveibeenpwned.com/api/v3/breaches?domain=${domain}&truncateResponse=false`, {
       headers: {
-        'User-Agent': 'YourAppName',
+        'User-Agent': 'breachdetector',
         'hibp-api-key': 'd6c5fbdd8570474f90ac68b6f17e61f4',
       },
     });
