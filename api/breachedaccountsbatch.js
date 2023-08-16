@@ -3,6 +3,17 @@ export const config = {
 };
 
 export default async function handler(request) {
+  if (request.method === 'OPTIONS') {
+        // Handle preflight requests
+        return new Response(null, {
+            status: 204, // No Content
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type',
+            },
+        });
+    }
     try {
       console.log("Request received with body:", request.body); // Logging the received body
   
@@ -57,10 +68,12 @@ export default async function handler(request) {
       return new Response(JSON.stringify(results), {
         status: 200,
         headers: {
-          'content-type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
+            'content-type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
         },
-      });
+    });
   
     } catch (error) {
       console.log("General error:", error.message); // Logging general errors
